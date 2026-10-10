@@ -9,19 +9,21 @@ interface AppShellProps {
 
 export const AppShell: React.FC<AppShellProps> = ({ children }) => {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+  const handleCloseMobileNav = React.useCallback(() => setIsMobileNavOpen(false), []);
+  const handleOpenMobileNav = React.useCallback(() => setIsMobileNavOpen(true), []);
 
   return (
     <div className="min-h-screen flex flex-col bg-surface font-body text-on-surface antialiased">
       {/* Header Shell */}
       <Header
         isMobileNavOpen={isMobileNavOpen}
-        onOpenMobileNav={() => setIsMobileNavOpen(true)}
+        onOpenMobileNav={handleOpenMobileNav}
       />
 
       {/* Mobile Drawer Shell */}
       <MobileNav
         isOpen={isMobileNavOpen}
-        onClose={() => setIsMobileNavOpen(false)}
+        onClose={handleCloseMobileNav}
       />
 
       {/* Main Viewport Content Region */}

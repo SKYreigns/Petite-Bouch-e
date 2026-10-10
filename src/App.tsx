@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import { AppShell } from './components/layout/AppShell';
 import { appConfig, getInquiryAdapter } from './config/appConfig';
 import { InquiryAdapterResponse } from './types/inquiry';
+import { Hero } from './components/home/Hero';
+import { Gallery } from './components/home/Gallery';
+import { Inquiry } from './components/home/Inquiry';
+import { Story } from './components/home/Story';
 
 export const App: React.FC = () => {
   const [adapterStatus, setAdapterStatus] = useState<string>('Adapter Standby');
@@ -38,39 +42,12 @@ export const App: React.FC = () => {
 
   return (
     <AppShell>
-      <section id="home" className="w-full min-h-[calc(100vh-80px)] flex flex-col items-center justify-center px-margin-mobile md:px-space-lg lg:px-margin py-space-xl text-center relative overflow-hidden">
-        
-        {/* Ambient Light Effects */}
-        <div className="absolute -top-40 right-1/4 w-[620px] h-[620px] rounded-full bg-secondary-container/20 blur-[130px] pointer-events-none -z-10" />
-        <div className="absolute top-1/3 -left-32 w-[520px] h-[520px] rounded-full bg-tertiary-fixed-dim/25 blur-[120px] pointer-events-none -z-10" />
-
-        {/* Hero Title */}
-        <h1 className="font-display text-4xl sm:text-5xl lg:text-7xl text-primary tracking-tight leading-[1.08] max-w-4xl mb-6 mt-12 z-10">
-          Crafted with Love. <br />
-          <span className="italic font-display text-secondary font-light">Designed to Delight.</span>
-        </h1>
-
-        {/* Description */}
-        <p className="font-body text-body-lg text-on-surface-variant max-w-2xl leading-relaxed mb-10 z-10">
-          Discover extraordinary demonstration cakes and architectural patisserie concepts, handcrafted for Toronto celebrations with Parisian-inspired savoir-faire.
-        </p>
-
-        {/* Action CTAs */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 z-10">
-          <a
-            href="#vitrine-section"
-            className="px-space-lg py-3.5 rounded-full bg-primary-container text-on-primary font-label text-[11px] uppercase tracking-[0.16em] shadow-md hover:bg-primary transition-all duration-300"
-          >
-            Explore Our Creations
-          </a>
-          <a
-            href="#bespoke-studio-section"
-            className="px-space-md py-3.5 rounded-full bg-surface-container-high text-primary font-label text-[11px] uppercase tracking-[0.16em] hover:bg-surface-container-highest transition-all duration-300"
-          >
-            Create a Custom Cake
-          </a>
-        </div>
-      </section>
+      <div className="flex flex-col w-full relative overflow-x-hidden">
+        <Hero />
+        <Gallery />
+        <Inquiry />
+        <Story />
+      </div>
 
       {/* Development Overlay Toggle & Panel */}
       {appConfig.environment !== 'production' && (

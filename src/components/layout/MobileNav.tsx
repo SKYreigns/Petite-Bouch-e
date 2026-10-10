@@ -29,11 +29,6 @@ export const MobileNav: React.FC<MobileNavProps> = ({ isOpen, onClose }) => {
     >
       <div className="flex items-center justify-between pb-6 border-b border-outline-variant/30">
         <div className="flex items-center gap-2">
-          <img
-            src="https://lh3.googleusercontent.com/aida/AEtjO1WTJz53Pso0OIKtmjjRjux5OVRsSMpEFOlIS75c3T4Foj5QZgAWdiln3S81bw8NzBeQYvuN_Uo-ZEud0qy8HgMnvEJt8mjXXow_ls1fb1810fugnqlS3krvuyFmBZZkf-eNhqvyJN5mzHJsoGQDUgDBtBmCJgClOVAkjm-gniZZj5bIMNc0xOZVUiOirR1LrQkT6GlNBLttoE2w0RDG_VathaJGeMe7qHpcc6B0voM_dCtmK3iy3KmApefJ"
-            alt="Petite Bouchée Logo"
-            className="h-7 w-auto object-contain"
-          />
           <span className="font-display text-lg text-primary font-medium">Petite Bouchée</span>
         </div>
         <button

@@ -1,6 +1,6 @@
 export interface BusinessDetailsConfig {
   name: string;
-  subheading: string;
+  tagline: string;
   city: string;
   country: string;
   address: string;

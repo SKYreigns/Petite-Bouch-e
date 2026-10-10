@@ -11,23 +11,18 @@ export const Header: React.FC<HeaderProps> = ({ onOpenMobileNav, isMobileNavOpen
 
   return (
     <header className="fixed top-0 inset-x-0 z-50 transition-all duration-500 bg-surface/90 backdrop-blur-md border-b border-outline-variant/30 shadow-[0_4px_24px_rgba(57,39,31,0.03)]">
-      <div className="max-w-[1440px] mx-auto px-margin-mobile md:px-space-lg lg:px-margin h-20 flex items-center justify-between gap-gutter">
+      <div className="max-w-[1440px] mx-auto px-margin-mobile md:px-space-lg lg:px-margin h-20 flex items-center justify-between gap-space-sm sm:gap-gutter">
         
-        {/* Brand Emblem & Title */}
-        <div className="flex items-center gap-space-sm shrink-0">
-          <img
-            src="https://lh3.googleusercontent.com/aida/AEtjO1WTJz53Pso0OIKtmjjRjux5OVRsSMpEFOlIS75c3T4Foj5QZgAWdiln3S81bw8NzBeQYvuN_Uo-ZEud0qy8HgMnvEJt8mjXXow_ls1fb1810fugnqlS3krvuyFmBZZkf-eNhqvyJN5mzHJsoGQDUgDBtBmCJgClOVAkjm-gniZZj5bIMNc0xOZVUiOirR1LrQkT6GlNBLttoE2w0RDG_VathaJGeMe7qHpcc6B0voM_dCtmK3iy3KmApefJ"
-            alt="Petite Bouchée Patisserie Emblem Logo"
-            className="h-8 w-auto object-contain"
-          />
+        {/* Brand Title (Logo image removed due to missing asset blocker) */}
+        <div className="flex items-center gap-space-sm shrink-0 truncate">
           <a
             href="#home"
-            className="flex flex-col text-left focus-visible:ring-2 focus-visible:ring-secondary focus-visible:outline-none rounded-sm"
+            className="flex flex-col text-left focus-visible:ring-2 focus-visible:ring-secondary focus-visible:outline-none rounded-sm truncate"
           >
-            <span className="font-display text-headline-sm tracking-tight text-primary leading-none font-medium">
+            <span className="font-display text-2xl sm:text-headline-sm tracking-tight text-primary leading-none font-medium truncate">
               {businessDetails.name}
             </span>
-            <span className="font-label text-[11px] text-secondary tracking-[0.2em] uppercase mt-0.5 font-semibold">
+            <span className="hidden sm:block font-label text-[11px] text-secondary tracking-[0.2em] uppercase mt-0.5 font-semibold">
               {businessDetails.tagline}
             </span>
           </a>
@@ -36,7 +31,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenMobileNav, isMobileNavOpen
         {/* Desktop Navigation Links */}
         <nav
           aria-label="Main Navigation"
-          className="hidden xl:flex items-center gap-space-lg"
+          className="hidden xl:flex items-center gap-space-md lg:gap-space-lg"
         >
           <a
             href="#home"
@@ -76,7 +71,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenMobileNav, isMobileNavOpen
           {featureFlags.conciergeEnabled ? (
             <button
               type="button"
-              className="hidden sm:flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-surface-container border border-outline-variant/40 hover:bg-secondary-container/40 transition-colors focus-visible:ring-2 focus-visible:ring-secondary focus-visible:outline-none"
+              className="hidden md:flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-surface-container border border-outline-variant/40 hover:bg-secondary-container/40 transition-colors focus-visible:ring-2 focus-visible:ring-secondary focus-visible:outline-none"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse" />
               <span className="font-label text-[11px] text-on-surface-variant uppercase tracking-wider font-semibold">
@@ -85,7 +80,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenMobileNav, isMobileNavOpen
             </button>
           ) : (
             <span
-              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container/60 border border-outline-variant/30 text-[10px] font-label uppercase text-outline tracking-wider"
+              className="hidden md:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container/60 border border-outline-variant/30 text-[10px] font-label uppercase text-outline tracking-wider"
               title="Concierge AI is a Phase 5 gated feature"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-outline/50" />
@@ -95,7 +90,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenMobileNav, isMobileNavOpen
 
           <a
             href="#bespoke-studio-section"
-            className="inline-flex items-center justify-center px-space-md py-2.5 rounded-full bg-primary-container text-on-primary font-label text-[11px] uppercase tracking-widest border border-secondary/40 shadow-[0_2px_12px_rgba(57,39,31,0.08)] hover:bg-primary transition-all duration-300 focus-visible:ring-2 focus-visible:ring-secondary focus-visible:outline-none"
+            className="hidden sm:inline-flex items-center justify-center px-space-md py-2.5 rounded-full bg-primary-container text-on-primary font-label text-[11px] uppercase tracking-widest border border-secondary/40 shadow-[0_2px_12px_rgba(57,39,31,0.08)] hover:bg-primary transition-all duration-300 focus-visible:ring-2 focus-visible:ring-secondary focus-visible:outline-none"
           >
             Create Your Cake
           </a>
@@ -107,7 +102,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenMobileNav, isMobileNavOpen
             aria-expanded={isMobileNavOpen}
             aria-controls="mobile-navigation-drawer"
             aria-label="Toggle navigation menu"
-            className="xl:hidden w-10 h-10 rounded-full bg-surface-container hover:bg-surface-container-high text-primary flex items-center justify-center transition-colors focus-visible:ring-2 focus-visible:ring-secondary focus-visible:outline-none"
+            className="xl:hidden w-10 h-10 rounded-full bg-surface-container hover:bg-surface-container-high text-primary flex items-center justify-center transition-colors focus-visible:ring-2 focus-visible:ring-secondary focus-visible:outline-none shrink-0"
           >
             <span className="material-symbols-outlined text-[22px]">
               {isMobileNavOpen ? 'close' : 'menu'}

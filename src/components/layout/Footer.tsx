@@ -15,11 +15,6 @@ export const Footer: React.FC = () => {
           {/* Brand Info Column */}
           <div className="lg:col-span-4 space-y-space-md">
             <div className="flex items-center gap-space-sm">
-              <img
-                src="https://lh3.googleusercontent.com/aida/AEtjO1WTJz53Pso0OIKtmjjRjux5OVRsSMpEFOlIS75c3T4Foj5QZgAWdiln3S81bw8NzBeQYvuN_Uo-ZEud0qy8HgMnvEJt8mjXXow_ls1fb1810fugnqlS3krvuyFmBZZkf-eNhqvyJN5mzHJsoGQDUgDBtBmCJgClOVAkjm-gniZZj5bIMNc0xOZVUiOirR1LrQkT6GlNBLttoE2w0RDG_VathaJGeMe7qHpcc6B0voM_dCtmK3iy3KmApefJ"
-                alt="Petite Bouchée Logo"
-                className="h-8 w-auto object-contain filter brightness-200"
-              />
               <span className="font-display text-headline-sm text-surface tracking-tight">
                 {businessDetails.name}
               </span>

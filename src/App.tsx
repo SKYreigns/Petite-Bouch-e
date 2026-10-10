@@ -1,43 +1,40 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { AppShell } from './components/layout/AppShell';
 import { appConfig, getInquiryAdapter } from './config/appConfig';
 import { InquiryAdapterResponse } from './types/inquiry';
 
 export const App: React.FC = () => {
-  const [adapterStatus, setAdapterStatus] = useState<string>('Initializing Adapter Verification...');
+  const [adapterStatus, setAdapterStatus] = useState<string>('Adapter Standby');
   const [testResponse, setTestResponse] = useState<InquiryAdapterResponse | null>(null);
   const [showDevTools, setShowDevTools] = useState<boolean>(false);
 
-  useEffect(() => {
-    // Only mount dev tools logic if not in production, or if explicitly enabled
-    if (appConfig.environment !== 'production') {
-      try {
-        const adapter = getInquiryAdapter();
-        setAdapterStatus(`Active Adapter: ${adapter.name}`);
+  const handleTestAdapter = async () => {
+    try {
+      const adapter = getInquiryAdapter();
+      setAdapterStatus(`Testing Adapter: ${adapter.name}...`);
 
-        adapter.submitInquiry({
-          occasion: 'Birthday Demo',
-          servings: '10–12 Guests',
-          flavour: 'Velvet Chocolate',
-          design: 'Pressed Botanical Floral',
-          colour: 'Blush Rose',
-          eventDate: '2026-11-15',
-          targetBudget: '$180 - $250 CAD',
-          customerName: 'Geneviève Claire',
-          customerEmail: 'genevieve@example.com',
-          submittedAt: new Date().toISOString(),
-        }).then((res) => {
-          setTestResponse(res);
-        });
-      } catch (err: unknown) {
-        if (err instanceof Error) {
-          setAdapterStatus(`Adapter Error: ${err.message}`);
-        } else {
-          setAdapterStatus('Adapter Error: Unknown failure');
-        }
+      const res = await adapter.submitInquiry({
+        occasion: 'Demo Event',
+        servings: '1-2 Guests',
+        flavour: 'Test Flavour',
+        design: 'Test Design',
+        colour: 'Test Colour',
+        eventDate: '2099-01-01',
+        targetBudget: 'Test Budget',
+        customerName: 'Test User',
+        customerEmail: 'test@example.local',
+        submittedAt: new Date().toISOString(),
+      });
+      setTestResponse(res);
+      setAdapterStatus(`Adapter Active: ${adapter.name}`);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setAdapterStatus(`Adapter Error: ${err.message}`);
+      } else {
+        setAdapterStatus('Adapter Error: Unknown failure');
       }
     }
-  }, []);
+  };
 
   return (
     <AppShell>
@@ -95,7 +92,14 @@ export const App: React.FC = () => {
                 </div>
                 <div>
                   <p className="text-outline font-label uppercase text-[9px]">Inquiry Adapter</p>
-                  <p className="text-secondary font-medium mt-0.5 text-[11px] truncate">{adapterStatus}</p>
+                  <p className="text-secondary font-medium mt-0.5 text-[11px] truncate mb-2">{adapterStatus}</p>
+                  <button
+                    type="button"
+                    onClick={handleTestAdapter}
+                    className="w-full py-1.5 rounded bg-secondary-container text-on-secondary-container font-label text-[10px] uppercase tracking-wider hover:bg-secondary hover:text-on-secondary transition-colors focus-visible:ring-2 focus-visible:ring-secondary focus-visible:outline-none"
+                  >
+                    Test Mock Adapter
+                  </button>
                 </div>
               </div>
               {testResponse && (

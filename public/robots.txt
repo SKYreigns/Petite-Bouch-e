@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://skyreigns.github.io/Petite-Bouch-e/sitemap.xml

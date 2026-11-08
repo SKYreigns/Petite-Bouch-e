@@ -7,6 +7,8 @@ export interface BusinessDetailsConfig {
   phone: string;
   email: string;
   hours: string;
+  instagram: string;
+  instagramUrl: string;
 }
 
 export interface FeatureFlags {
@@ -14,9 +16,10 @@ export interface FeatureFlags {
   voiceEnabled: boolean;
   newsletterEnabled: boolean;
   inquirySubmissionEnabled: boolean;
+  demoInquiry: boolean;
 }
 
-export type AdapterType = 'mock' | 'serverless' | 'webhook';
+export type AdapterType = 'demo' | 'serverless' | 'webhook';
 
 export interface AppConfig {
   environment: 'development' | 'staging' | 'production';

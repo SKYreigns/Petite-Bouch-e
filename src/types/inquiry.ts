@@ -1,21 +1,16 @@
-export interface InquiryPayload {
-  occasion: string;
-  servings: string;
-  flavour: string;
-  design: string;
-  colour: string;
-  eventDate: string;
-  targetBudget: string;
-  customerName: string;
-  customerEmail: string;
-  dietaryNotes?: string;
-  submittedAt: string; // ISO 8601 string timestamp
-}
+import type { CakeInquiry } from '../lib/cakeInquiry';
+
+/**
+ * Payload accepted by an inquiry provider. The site currently uses a
+ * demonstration adapter, so no payload ever leaves the browser.
+ */
+export type InquiryPayload = CakeInquiry;
 
 export interface InquiryAdapterResponse {
   success: boolean;
+  demo?: boolean;
   transactionId?: string;
-  providerStatus?: number | string;
+  submittedAt?: string;
   error?: {
     code: string;
     message: string;

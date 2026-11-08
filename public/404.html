@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en-CA">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Petite Bouchée Patisserie</title>
+    <meta name="robots" content="noindex" />
+    <script>
+      // GitHub Pages serves this file for unknown deep links. Store the
+      // requested URL, then return to the app shell so the router can render it.
+      (function () {
+        var path = window.location.pathname;
+        var segments = path.split('/').filter(Boolean);
+        var base = segments.length ? '/' + segments[0] + '/' : '/';
+        try {
+          sessionStorage.setItem('pb:redirect', window.location.href);
+        } catch (error) {
+          // Storage can be unavailable in private modes; fall back to the base.
+        }
+        window.location.replace(window.location.origin + base);
+      })();
+    </script>
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background: #fdf9f1;
+        color: #39271f;
+        font-family: Georgia, 'Times New Roman', serif;
+        text-align: center;
+        padding: 2rem;
+      }
+      a {
+        color: #735a30;
+      }
+    </style>
+  </head>
+  <body>
+    <p>
+      Returning to
+      <a href="/">Petite Bouchée Patisserie</a>…
+    </p>
+  </body>
+</html>

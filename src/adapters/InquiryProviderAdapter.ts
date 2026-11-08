@@ -1,6 +1,7 @@
-import { InquiryPayload, InquiryAdapterResponse } from '../types/inquiry';
+import type { CakeInquiry } from '../lib/cakeInquiry';
+import type { InquiryAdapterResponse } from '../types/inquiry';
 
 export interface InquiryProviderAdapter {
   readonly name: string;
-  submitInquiry(payload: InquiryPayload): Promise<InquiryAdapterResponse>;
+  submitInquiry(payload: CakeInquiry): Promise<InquiryAdapterResponse>;
 }

@@ -1,38 +1,25 @@
-import React, { useState } from 'react';
-import { Header } from './Header';
-import { MobileNav } from './MobileNav';
+import type { ReactNode } from 'react';
 import { Footer } from './Footer';
+import { Header } from './Header';
 
 interface AppShellProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
-export const AppShell: React.FC<AppShellProps> = ({ children }) => {
-  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
-  const handleCloseMobileNav = React.useCallback(() => setIsMobileNavOpen(false), []);
-  const handleOpenMobileNav = React.useCallback(() => setIsMobileNavOpen(true), []);
-
+export function AppShell({ children }: AppShellProps) {
   return (
-    <div className="min-h-screen flex flex-col bg-surface font-body text-on-surface antialiased">
-      {/* Header Shell */}
-      <Header
-        isMobileNavOpen={isMobileNavOpen}
-        onOpenMobileNav={handleOpenMobileNav}
-      />
-
-      {/* Mobile Drawer Shell */}
-      <MobileNav
-        isOpen={isMobileNavOpen}
-        onClose={handleCloseMobileNav}
-      />
-
-      {/* Main Viewport Content Region */}
-      <main id="main-content" className="w-full pt-20 flex-1 bg-surface">
+    <div className="flex min-h-screen flex-col">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-sm focus:bg-primary focus:px-4 focus:py-3 focus:text-sm focus:font-semibold focus:text-surface"
+      >
+        Skip to content
+      </a>
+      <Header />
+      <main id="main-content" className="flex-1 pt-16 lg:pt-20">
         {children}
       </main>
-
-      {/* Footer Shell */}
       <Footer />
     </div>
   );
-};
+}

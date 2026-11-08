@@ -1,50 +1,51 @@
-import { AppConfig, BusinessDetailsConfig, FeatureFlags } from '../types/config';
-import { InquiryProviderAdapter } from '../adapters/InquiryProviderAdapter';
-import { MockInquiryAdapter } from '../adapters/MockInquiryAdapter';
+import { business } from '../data/site';
+import { DemoInquiryAdapter } from '../adapters/DemoInquiryAdapter';
+import type { InquiryProviderAdapter } from '../adapters/InquiryProviderAdapter';
+import type {
+  AppConfig,
+  BusinessDetailsConfig,
+  FeatureFlags,
+} from '../types/config';
 
-const isProduction = import.meta.env.MODE === 'production' || import.meta.env.PROD;
+const isProduction = import.meta.env.PROD;
 
 export const businessDetails: BusinessDetailsConfig = {
-  name: 'Petite Bouchée',
-  tagline: 'Artisan Patisserie · Toronto',
-  city: 'Toronto',
-  country: 'Canada',
-  // In production, we omit unverified placeholders until client provides final data
-  address: isProduction ? '' : 'Toronto, Ontario, Canada (Address To Be Confirmed)',
-  phone: isProduction ? '' : '+1 (416) 555-0199 (Development Placeholder)',
-  email: isProduction ? '' : 'inquiries@petitebouchee-demo.ca (Development Placeholder)',
-  hours: isProduction ? '' : 'Tuesday – Sunday: 10:00 AM – 6:00 PM (To Be Confirmed)',
+  name: business.name,
+  tagline: business.tagline,
+  city: business.address.city,
+  country: business.address.country,
+  address: `${business.address.street}, ${business.address.city}, ${business.address.region} ${business.address.postalCode}`,
+  phone: business.phone.display,
+  // No public email address has been verified for the bakery.
+  email: '',
+  hours: business.hours
+    .map((entry) => `${entry.day}: ${entry.open} – ${entry.close}`)
+    .join('; '),
+  instagram: business.instagram.handle,
+  instagramUrl: business.instagram.url,
 };
 
 export const featureFlags: FeatureFlags = {
-  conciergeEnabled: false, // Disabled until Phase 5 client authorization
-  voiceEnabled: false,      // Disabled until Phase 5 client authorization
-  newsletterEnabled: false, // Disabled until CASL/provider consent approval
-  inquirySubmissionEnabled: !isProduction, // Disabled in prod until a real provider exists
+  conciergeEnabled: false,
+  voiceEnabled: false,
+  newsletterEnabled: false,
+  // The form is a demonstration; nothing is sent to a provider.
+  inquirySubmissionEnabled: false,
+  demoInquiry: true,
 };
 
 export const appConfig: AppConfig = {
   environment: isProduction ? 'production' : 'development',
-  inquiryAdapterType: isProduction ? 'serverless' : 'mock',
+  inquiryAdapterType: 'demo',
   businessDetails,
   featureFlags,
 };
 
 /**
- * Factory function to resolve the configured InquiryProviderAdapter.
- * Enforces a strict security guard preventing MockInquiryAdapter in production.
+ * Resolve the configured inquiry adapter. The demonstration adapter is the
+ * only implementation in this build. A real provider can be added here later
+ * without changing the form or its validation.
  */
 export function getInquiryAdapter(): InquiryProviderAdapter {
-  if (isProduction && appConfig.inquiryAdapterType === 'mock') {
-    throw new Error(
-      'CRITICAL SECURITY CONFIGURATION ERROR: MockInquiryAdapter cannot be used in production mode.'
-    );
-  }
-
-  if (appConfig.inquiryAdapterType === 'mock') {
-    return new MockInquiryAdapter();
-  }
-
-  // Placeholder for serverless adapter (Phase 4 integration)
-  throw new Error(`Inquiry adapter type '${appConfig.inquiryAdapterType}' not yet configured.`);
+  return new DemoInquiryAdapter();
 }

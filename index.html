@@ -1,18 +1,147 @@
-<!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<!doctype html>
+<html lang="en-CA">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Petite Bouchée — Artisan Patisserie · Toronto</title>
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..600;1,9..40,300..600&family=Playfair+Display:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#FDF9F1" />
+    <title>Petite Bouchée Patisserie — Toronto Bakery &amp; Custom Cakes</title>
+    <meta
+      name="description"
+      content="Petite Bouchée Patisserie is a Toronto bakery for cruffins, pastries, tarts, Portuguese country bread and bespoke celebration cakes. Visit 28 Sousa Mendes St or call +1 416-588-8882."
+    />
+    <meta name="author" content="Petite Bouchée Patisserie" />
+    <meta name="robots" content="index,follow" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Petite Bouchée Patisserie" />
+    <meta
+      property="og:title"
+      content="Petite Bouchée Patisserie — Toronto Bakery &amp; Custom Cakes"
+    />
+    <meta
+      property="og:description"
+      content="A little something to love. Artisan pastries, daily bakes and bespoke celebration cakes in Toronto."
+    />
+    <meta property="og:image" content="%BASE_URL%images/editorial/hero.jpg" />
+    <meta property="og:locale" content="en_CA" />
+    <meta
+      property="og:url"
+      content="https://skyreigns.github.io/Petite-Bouch-e/"
+    />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Petite Bouchée Patisserie — Toronto Bakery &amp; Custom Cakes"
+    />
+    <meta
+      name="twitter:description"
+      content="A little something to love. Artisan pastries, daily bakes and bespoke celebration cakes in Toronto."
+    />
+    <meta name="twitter:image" content="%BASE_URL%images/editorial/hero.jpg" />
+
+    <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
+    <link rel="apple-touch-icon" href="%BASE_URL%favicon.svg" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Bakery",
+        "name": "Petite Bouchée Patisserie",
+        "image": "%BASE_URL%images/editorial/hero.jpg",
+        "url": "https://skyreigns.github.io/Petite-Bouch-e/",
+        "telephone": "+1-416-588-8882",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "28 Sousa Mendes St",
+          "addressLocality": "Toronto",
+          "addressRegion": "ON",
+          "postalCode": "M6P 0B2",
+          "addressCountry": "CA"
+        },
+        "sameAs": [
+          "https://www.instagram.com/petite__bouchee_patisserie/"
+        ],
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Monday",
+            "opens": "12:00",
+            "closes": "19:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday",
+              "Sunday"
+            ],
+            "opens": "10:00",
+            "closes": "19:00"
+          }
+        ]
+      }
+    </script>
+
+    <script>
+      // Restore a deep link captured by public/404.html on static hosts.
+      (function () {
+        try {
+          var redirect = sessionStorage.getItem('pb:redirect');
+          if (!redirect) return;
+          sessionStorage.removeItem('pb:redirect');
+          var url = new URL(redirect);
+          if (url.origin === window.location.origin) {
+            window.history.replaceState(
+              null,
+              '',
+              url.pathname + url.search + url.hash
+            );
+          }
+        } catch (error) {
+          // Ignore storage or URL errors and let the app render the home page.
+        }
+      })();
+    </script>
   </head>
-  <body class="bg-surface font-body text-on-surface antialiased selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+  <body class="bg-surface font-body text-on-surface antialiased">
     <div id="root"></div>
+    <noscript>
+      <div
+        style="
+          padding: 2rem;
+          font-family: Georgia, 'Times New Roman', serif;
+          color: #22130c;
+          background: #fdf9f1;
+        "
+      >
+        <h1>Petite Bouchée Patisserie</h1>
+        <p>
+          This website needs JavaScript to display the full menu and cake
+          enquiry experience. You can reach the bakery at
+          <a href="tel:+14165888882" style="color: #735a30"
+            >+1 416-588-8882</a
+          >
+          or visit
+          <a
+            href="https://www.instagram.com/petite__bouchee_patisserie/"
+            style="color: #735a30"
+            >@petite__bouchee_patisserie</a
+          >.
+        </p>
+        <p>
+          28 Sousa Mendes St, Toronto, ON M6P 0B2. Monday 12:00 pm – 7:00 pm;
+          Tuesday – Sunday 10:00 am – 7:00 pm. Please call ahead to confirm
+          holiday hours.
+        </p>
+      </div>
+    </noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

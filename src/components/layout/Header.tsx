@@ -1,116 +1,182 @@
-import React from 'react';
-import { appConfig } from '../../config/appConfig';
+import { useEffect, useState } from 'react';
+import { CakeSlice, Menu, Phone, X } from 'lucide-react';
+import { Link, NavLink, useLocation } from 'react-router-dom';
+import { business } from '../../data/site';
+import { Dialog } from '../ui/Dialog';
+import { InstagramIcon } from '../ui/InstagramIcon';
+import { Logo } from '../ui/Logo';
 
-interface HeaderProps {
-  onOpenMobileNav: () => void;
-  isMobileNavOpen: boolean;
-}
+const navItems = [
+  { to: '/', label: 'Home', end: true },
+  { to: '/menu', label: 'Our Menu' },
+  { to: '/custom-cakes', label: 'Custom Cakes' },
+  { to: '/our-story', label: 'Our Story' },
+  { to: '/contact', label: 'Contact' },
+];
 
-export const Header: React.FC<HeaderProps> = ({ onOpenMobileNav, isMobileNavOpen }) => {
-  const { businessDetails, featureFlags } = appConfig;
+export function Header() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location.pathname]);
 
   return (
-    <header className="fixed top-0 inset-x-0 z-50 transition-all duration-500 bg-surface/90 backdrop-blur-md border-b border-outline-variant/30 shadow-[0_4px_24px_rgba(57,39,31,0.03)]">
-      <div className="max-w-[1440px] mx-auto px-margin-mobile md:px-space-lg lg:px-margin h-20 flex items-center justify-between gap-space-sm sm:gap-gutter">
-        
-        {/* Brand Title (Logo image removed due to missing asset blocker) */}
-        <div className="flex items-center gap-space-sm shrink-0 truncate">
-          <a
-            href="#home"
-            className="flex flex-col text-left focus-visible:ring-2 focus-visible:ring-secondary focus-visible:outline-none rounded-sm truncate"
-          >
-            <span className="font-display text-2xl sm:text-headline-sm tracking-tight text-primary leading-none font-medium truncate">
-              {businessDetails.name}
-            </span>
-            <span className="hidden sm:block font-label text-[11px] text-secondary tracking-[0.2em] uppercase mt-0.5 font-semibold">
-              {businessDetails.tagline}
-            </span>
-          </a>
+    <header className="sticky top-0 z-40 border-b border-[#efe5d6]/80 bg-surface/[0.94] backdrop-blur-md">
+      <div className="shell flex h-16 items-center justify-between gap-3 lg:h-20 lg:gap-6">
+        <button
+          type="button"
+          className="flex h-11 w-11 items-center justify-center rounded-full text-primary transition-colors hover:bg-surface-container focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary lg:hidden"
+          aria-label="Open navigation menu"
+          aria-expanded={menuOpen}
+          aria-controls="mobile-navigation"
+          onClick={() => setMenuOpen(true)}
+        >
+          <Menu className="h-5 w-5" aria-hidden="true" />
+        </button>
+
+        <div className="lg:flex-1">
+          <Logo responsiveSubtitle />
         </div>
 
-        {/* Desktop Navigation Links */}
-        <nav
-          aria-label="Main Navigation"
-          className="hidden xl:flex items-center gap-space-md lg:gap-space-lg"
-        >
-          <a
-            href="#home"
-            aria-current="page"
-            className="relative py-1 uppercase text-primary font-medium font-label text-[11px] tracking-[0.14em] after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1px] after:bg-secondary transition-all focus-visible:ring-2 focus-visible:ring-secondary focus-visible:outline-none"
-          >
-            Home
-          </a>
-          <a
-            href="#vitrine-section"
-            className="relative py-1 font-label text-[11px] tracking-[0.14em] uppercase text-on-surface-variant hover:text-on-surface transition-colors after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-secondary hover:after:w-full after:transition-all focus-visible:ring-2 focus-visible:ring-secondary focus-visible:outline-none"
-          >
-            Our Creations
-          </a>
-          <a
-            href="#bespoke-studio-section"
-            className="relative py-1 font-label text-[11px] tracking-[0.14em] uppercase text-on-surface-variant hover:text-on-surface transition-colors after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-secondary hover:after:w-full after:transition-all focus-visible:ring-2 focus-visible:ring-secondary focus-visible:outline-none"
-          >
-            Custom Cakes
-          </a>
-          <a
-            href="#story-section"
-            className="relative py-1 font-label text-[11px] tracking-[0.14em] uppercase text-on-surface-variant hover:text-on-surface transition-colors after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-secondary hover:after:w-full after:transition-all focus-visible:ring-2 focus-visible:ring-secondary focus-visible:outline-none"
-          >
-            Our Story
-          </a>
-          <a
-            href="#footer-contact"
-            className="relative py-1 font-label text-[11px] tracking-[0.14em] uppercase text-on-surface-variant hover:text-on-surface transition-colors after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-secondary hover:after:w-full after:transition-all focus-visible:ring-2 focus-visible:ring-secondary focus-visible:outline-none"
-          >
-            Contact
-          </a>
+        <nav aria-label="Primary" className="hidden items-center gap-7 lg:flex">
+          {navItems.map((item) => (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              end={item.end}
+              className={({ isActive }) =>
+                [
+                  'relative inline-flex min-h-[44px] items-center text-[0.6875rem] font-semibold uppercase tracking-[0.12em] transition-colors',
+                  isActive
+                    ? 'text-primary after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-secondary'
+                    : 'text-on-surface-variant hover:text-primary',
+                ].join(' ')
+              }
+            >
+              {item.label}
+            </NavLink>
+          ))}
         </nav>
 
-        {/* Action Controls & Mobile Hamburger Toggle */}
-        <div className="flex items-center gap-space-sm sm:gap-space-md shrink-0">
-          {featureFlags.conciergeEnabled ? (
+        <div className="flex items-center justify-end gap-2 lg:flex-1">
+          <Link
+            to="/custom-cakes"
+            className="btn btn-primary hidden lg:inline-flex"
+          >
+            Enquire About a Cake
+            <CakeSlice className="h-4 w-4" aria-hidden="true" />
+          </Link>
+          <Link
+            to="/custom-cakes"
+            className="flex h-11 w-11 items-center justify-center rounded-full bg-primary text-surface transition-colors hover:bg-primary-container focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 lg:hidden"
+            aria-label="Enquire about a custom cake"
+          >
+            <CakeSlice className="h-5 w-5" aria-hidden="true" />
+          </Link>
+        </div>
+      </div>
+
+      <Dialog
+        open={menuOpen}
+        onClose={() => setMenuOpen(false)}
+        labelledBy="mobile-navigation-title"
+        className="nav-dialog"
+        id="mobile-navigation"
+      >
+        <div className="flex h-full flex-col">
+          <div className="flex items-center justify-between border-b border-[#efe5d6] px-5 py-4">
+            <div>
+              <p className="label-caps text-secondary">Pâtisserie fine</p>
+              <h2
+                id="mobile-navigation-title"
+                className="headline-sm mt-1 text-xl"
+              >
+                Petite Bouchée
+              </h2>
+            </div>
             <button
               type="button"
-              className="hidden md:flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-surface-container border border-outline-variant/40 hover:bg-secondary-container/40 transition-colors focus-visible:ring-2 focus-visible:ring-secondary focus-visible:outline-none"
+              className="flex h-11 w-11 items-center justify-center rounded-full text-on-surface-variant transition-colors hover:bg-surface-container focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
+              aria-label="Close navigation menu"
+              onClick={() => setMenuOpen(false)}
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse" />
-              <span className="font-label text-[11px] text-on-surface-variant uppercase tracking-wider font-semibold">
-                AI Concierge Live
-              </span>
+              <X className="h-5 w-5" aria-hidden="true" />
             </button>
-          ) : (
-            <span
-              className="hidden md:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container/60 border border-outline-variant/30 text-[10px] font-label uppercase text-outline tracking-wider"
-              title="Concierge AI is a Phase 5 gated feature"
+          </div>
+
+          <nav
+            aria-label="Mobile primary"
+            className="flex-1 overflow-y-auto px-5 py-5"
+          >
+            <ul className="space-y-1">
+              {navItems.map((item) => (
+                <li key={item.to}>
+                  <NavLink
+                    to={item.to}
+                    end={item.end}
+                    onClick={() => setMenuOpen(false)}
+                    className={({ isActive }) =>
+                      [
+                        'flex min-h-[48px] items-center justify-between rounded-sm px-3 text-sm font-medium transition-colors',
+                        isActive
+                          ? 'bg-secondary-container/40 text-primary'
+                          : 'text-on-surface-variant hover:bg-surface-container hover:text-primary',
+                      ].join(' ')
+                    }
+                  >
+                    {item.label}
+                    <span aria-hidden="true" className="text-secondary">
+                      →
+                    </span>
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
+
+            <div className="mt-6 border-t border-[#efe5d6] pt-5">
+              <p className="label-caps text-secondary">Visit the bakery</p>
+              <address className="body-sm mt-3 not-italic text-on-surface-variant">
+                {business.address.street}
+                <br />
+                {business.address.city}, {business.address.region}{' '}
+                {business.address.postalCode}
+              </address>
+              <a
+                href={`tel:${business.phone.href}`}
+                className="mt-3 inline-flex min-h-[44px] items-center gap-2 text-sm font-medium text-primary"
+              >
+                <Phone className="h-4 w-4 text-secondary" aria-hidden="true" />
+                {business.phone.display}
+              </a>
+              <a
+                href={business.instagram.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-1 flex min-h-[44px] items-center gap-2 text-sm font-medium text-primary"
+              >
+                <InstagramIcon className="h-4 w-4 text-secondary" />
+                {business.instagram.handle}
+              </a>
+            </div>
+          </nav>
+
+          <div className="border-t border-[#efe5d6] bg-surface-container-low px-5 py-4">
+            <Link
+              to="/custom-cakes"
+              onClick={() => setMenuOpen(false)}
+              className="btn btn-primary w-full"
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-outline/50" />
-              AI Concierge (Phase 5 Demo)
-            </span>
-          )}
-
-          <a
-            href="#bespoke-studio-section"
-            className="hidden sm:inline-flex items-center justify-center px-space-md py-2.5 rounded-full bg-primary-container text-on-primary font-label text-[11px] uppercase tracking-widest border border-secondary/40 shadow-[0_2px_12px_rgba(57,39,31,0.08)] hover:bg-primary transition-all duration-300 focus-visible:ring-2 focus-visible:ring-secondary focus-visible:outline-none"
-          >
-            Create Your Cake
-          </a>
-
-          {/* Mobile Navigation Toggle Button */}
-          <button
-            type="button"
-            onClick={onOpenMobileNav}
-            aria-expanded={isMobileNavOpen}
-            aria-controls="mobile-navigation-drawer"
-            aria-label="Toggle navigation menu"
-            className="xl:hidden w-10 h-10 rounded-full bg-surface-container hover:bg-surface-container-high text-primary flex items-center justify-center transition-colors focus-visible:ring-2 focus-visible:ring-secondary focus-visible:outline-none shrink-0"
-          >
-            <span className="material-symbols-outlined text-[22px]">
-              {isMobileNavOpen ? 'close' : 'menu'}
-            </span>
-          </button>
+              <CakeSlice className="h-4 w-4" aria-hidden="true" />
+              Custom Cake Enquiry
+            </Link>
+            <p className="body-sm mt-3 text-center text-on-surface-variant">
+              {business.hoursNote}
+            </p>
+          </div>
         </div>
-
-      </div>
+      </Dialog>
     </header>
   );
-};
+}
